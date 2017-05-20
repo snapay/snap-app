@@ -1,7 +1,35 @@
 <template>
-  <!-- Don't drop "q-app" class -->
   <div id="q-app">
-    <router-view></router-view>
+    <q-layout>
+      <!-- All menu -->
+      <q-drawer ref="drawerMenuMain" left-side>
+        <div class="list platform-delimiter">
+          <div class="list-header">
+            MENU
+          </div>
+          <q-drawer-link icon="card_travel" to="/new-sale">Nova Venda</q-drawer-link>
+          <q-drawer-link icon="assignment" to="/list-sales">Lista de Vendas</q-drawer-link>
+          <q-drawer-link icon="settings" to="/settings">Configurações</q-drawer-link>
+        </div>
+      </q-drawer>
+
+      <!-- All Header -->
+      <div slot="header" class="toolbar">
+        <button
+          @click="$refs.drawerMenuMain.open()">
+          <i>menu</i>
+        </button>
+
+        <!-- App name -->
+        <q-toolbar-title>
+          Snapay
+        </q-toolbar-title>
+      </div>
+
+      <div class="container">
+        <router-view></router-view>
+      </div>
+    </q-layout>
   </div>
 </template>
 
@@ -9,7 +37,25 @@
 /*
  * Root component
  */
-export default {}
+export default {
+  name: 'AppMain'
+}
 </script>
 
-<style></style>
+<style lang="stylus">
+.toolbar
+  background-color #2aa68d
+
+.list-header
+  font-weight 600
+  font-size 35px
+  padding 10px
+  padding-left 17px
+  color #666
+  border-bottom 1px solid #ccc
+
+.container
+  padding 10px
+  padding-left 17px
+  padding-right 17px
+</style>
