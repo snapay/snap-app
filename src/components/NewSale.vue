@@ -28,7 +28,7 @@
           class="input-creditcard"
           type="text"
           v-model="creditCard"
-          @input="entry()"
+          @blur="entry()"
           autofocus="autofocus">
 
         <button
@@ -36,8 +36,6 @@
           class="light"
           @click="$refs.readCreditCardModal.close()">CANCELAR</button>
 
-        res: {{res}}
-        err: {{err}}
         <!-- Success status -->
         <transition name="fade">
           <i
@@ -89,10 +87,7 @@ export default {
         success: false,
         fail: false
       },
-      creditCard: undefined,
-      err: null,
-      res: null,
-      body: null
+      creditCard: undefined
     }
   },
   methods: {
@@ -113,24 +108,20 @@ export default {
         axios({
           method: 'post',
           url: 'http://snapay.com.br/payment/',
-          data: {
+          data: JSON.stringify({
             amount: self.saleValue,
             card: '123.312312.3123',
             password: '1234'
-          },
-          headers: {
-            'Content-Type': 'application/json'
-          }
+          })
         })
         .then((res) => {
           self.operation = {
             success: true,
             waiting: false
           }
-          self.res = JSON.stringify(res)
         })
         .catch((err) => {
-          self.err = JSON.stringify(err)
+          console.log(err)
           self.operation = {
             fail: true,
             waiting: false
