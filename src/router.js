@@ -9,10 +9,11 @@ function load (component) {
 
 export default new VueRouter({
   routes: [
-    { path: '/', component: load('Index') }, // Default
-    { path: '/settings', component: load('Settings') }, // Default
-    { path: '/new-sale', component: load('NewSale') }, // Default
-    { path: '/list-sales', component: load('ListSales') }, // Default
+    { name: 'NewSale', path: '/', component: load('NewSale') }, // Default
+    { name: 'Settings', path: '/settings', component: load('Settings') }, // Settings
+    { name: 'NewSale2', path: '/new-sale', component: load('NewSale') }, // New sale
+    { name: 'ListSales', path: '/list-sales', component: load('ListSales') }, // List sale
+    { name: 'ReadCreditCard', path: '/read-credit-card', component: load('ReadCreditCard') }, // Reading credit card
     { path: '*', component: load('Error404') } // Not found
   ]
 })

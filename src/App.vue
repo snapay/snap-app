@@ -43,6 +43,16 @@ export default {
 </script>
 
 <style lang="stylus">
+*
+  margin 0
+  padding 0
+  box-sizing border-box
+
+html,
+body
+  width 100%
+  height 100%
+
 .toolbar
   background-color #2aa68d
 
@@ -55,6 +65,7 @@ export default {
   border-bottom 1px solid #ccc
 
 .container
+  width 100%
   padding 10px
   padding-left 17px
   padding-right 17px
