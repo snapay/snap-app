@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="io.cordova.hellocordova" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>Snapay</name>
+    <description>
+        A new devices to make simple payments
+    </description>
+    <author email="dev@cordova.apache.org" href="http://cordova.io">
+        Team
+    </author>
+    <content src="index.html" />
+    <plugin name="cordova-plugin-whitelist" spec="1" />
+    <access origin="*" />
+    <allow-intent href="http://*/*" />
+    <allow-intent href="https://*/*" />
+    <allow-intent href="tel:*" />
+    <allow-intent href="sms:*" />
+    <allow-intent href="mailto:*" />
+    <allow-intent href="geo:*" />
+    <platform name="android">
+        <allow-intent href="market:*" />
+
+        <!--
+          ldpi    : 36x36 px
+          mdpi    : 48x48 px
+          hdpi    : 72x72 px
+          xhdpi   : 96x96 px
+          xxhdpi  : 144x144 px
+          xxxhdpi : 192x192 px
+        -->
+        <icon src="../src/statics/ldpi.png" density="ldpi" />
+        <icon src="../src/statics/mdpi.png" density="mdpi" />
+        <icon src="../src/statics/hdpi.png" density="hdpi" />
+        <icon src="../src/statics/xhdpi.png" density="xhdpi" />
+        <icon src="../src/statics/xxhdpi.png" density="xxhdpi" />
+        <icon src="../src/statics/xxxhdpi.png" density="xxxhdpi" />
+    </platform>
+    <platform name="ios">
+        <allow-intent href="itms:*" />
+        <allow-intent href="itms-apps:*" />
+    </platform>
+</widget>
