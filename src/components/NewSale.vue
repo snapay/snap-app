@@ -2,7 +2,11 @@
   <div class="new-sale">
     <!-- <img class="new-sale-logo" src="~assets/logo-only.png" alt="logo"> -->
     <h1 class="new-sale-title">Nova venda</h1>
-    <input class="new-sale-value" type="number" v-model="saleValue" placeholder="00,00">
+    <input
+      class="new-sale-value"
+      type="number"
+      v-model="saleValue"
+      placeholder="00.00">
     <button
       @click="startReadCreditCard()"
       class="primary big new-sale-button">
@@ -20,55 +24,119 @@
           :class="{ 'blink': operation.waiting }"
           class="modal-container-title">Passe o cartão...</h1>
 
+        <input
+          class="input-creditcard"
+          type="text"
+          v-model="creditCard"
+          @input="entry()"
+          autofocus="autofocus">
+
         <button
           v-if="operation.waiting"
           class="light"
           @click="$refs.readCreditCardModal.close()">CANCELAR</button>
 
+        res: {{res}}
+        err: {{err}}
         <!-- Success status -->
-        <i
-          v-if="operation.success"
-          :class="{ 'success-operation': operation.success }"
-          class="material-icons modal-container-icon">done_all</i>
-        <h1
-          v-if="operation.success"
-          :class="{ 'success-operation': operation.success }"
-          class="modal-container-title">Pago com sucesso!</h1>
+        <transition name="fade">
+          <i
+            v-if="operation.success"
+            :class="{ 'success-operation': operation.success }"
+            class="material-icons modal-container-icon">done_all</i>
+        </transition>
+        <transition name="fade">
+          <h1
+            v-if="operation.success"
+            :class="{ 'success-operation': operation.success }"
+            class="modal-container-title">Pago com sucesso!</h1>
+        </transition>
 
         <!-- Fail status -->
-        <i
-          v-if="operation.fail"
-          :class="{ 'fail-operation': operation.fail }"
-          class="material-icons modal-container-icon">highlight_off</i>
-        <h1
-          v-if="operation.fail"
-          :class="{ 'fail-operation': operation.fail }"
-          class="modal-container-title">Erro no pagamento!</h1>
-        <button
-          v-if="operation.fail"
-          class="btn-try-again"
-          @click="$refs.readCreditCardModal.close()">Tentar novamente</button>
+        <transition name="fade">
+          <i
+            v-if="operation.fail"
+            :class="{ 'fail-operation': operation.fail }"
+            class="material-icons modal-container-icon">highlight_off</i>
+        </transition>
+        <transition name="fade">
+          <h1
+            v-if="operation.fail"
+            :class="{ 'fail-operation': operation.fail }"
+            class="modal-container-title">Erro no pagamento!</h1>
+        </transition>
+        <transition name="fade">
+          <button
+            v-if="operation.fail"
+            class="btn-try-again"
+            @click="reset()">Tentar novamente</button>
+        </transition>
       </div>
     </q-modal>
   </div>
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
   name: 'NewSale',
   data () {
     return {
       saleValue: undefined,
       operation: {
-        waiting: false,
-        success: true,
+        waiting: true,
+        success: false,
         fail: false
-      }
+      },
+      creditCard: undefined,
+      err: null,
+      res: null,
+      body: null
     }
   },
   methods: {
+    reset () {
+      this.$refs.readCreditCardModal.close()
+      this.operation = {
+        success: false,
+        fail: false,
+        waiting: true
+      }
+    },
     startReadCreditCard () {
       this.$refs.readCreditCardModal.open()
+    },
+    entry () {
+      const self = this
+      setTimeout(() => {
+        axios({
+          method: 'post',
+          url: 'http://snapay.com.br/payment/',
+          data: {
+            amount: self.saleValue,
+            card: '123.312312.3123',
+            password: '1234'
+          },
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        })
+        .then((res) => {
+          self.operation = {
+            success: true,
+            waiting: false
+          }
+          self.res = JSON.stringify(res)
+        })
+        .catch((err) => {
+          self.err = JSON.stringify(err)
+          self.operation = {
+            fail: true,
+            waiting: false
+          }
+        })
+      }, 1500)
     }
   }
 }
@@ -82,6 +150,18 @@ export default {
 
 .blink
   animation blink 1s ease-in-out infinite alternate
+
+.fade-enter-active,
+.fade-leave-active
+  transition all .3s ease-in-out
+
+.fade-enter,
+.fade-leave-to
+  opacity 0
+
+.input-creditcard
+  border none !important
+  color #fff
 
 .new-sale
   width 100%

@@ -66,7 +66,6 @@ body
 
 .container
   width 100%
-  padding 10px
   padding-left 17px
   padding-right 17px
 </style>

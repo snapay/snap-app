@@ -1,5 +1,5 @@
 <template lang="html">
-  <transition name="slide-left">
+  <transition name="fade">
     <h1>Reading credit card</h1>
   </transition>
 </template>
@@ -11,11 +11,11 @@ export default {
 </script>
 
 <style lang="stylus">
-.slide-left-enter-active,
-.slide-left-leave-active
+.fade-enter-active,
+.fade-leave-active
   transition all .3s ease-in-out
 
-.slide-left-enter,
-.slide-left-leave-to
+.fade-enter,
+.fade-leave-to
   opacity 0
 </style>
