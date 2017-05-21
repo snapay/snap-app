@@ -27,8 +27,9 @@
         <input
           class="input-creditcard"
           type="text"
+          v-if="showCreditCardInput"
           v-model="creditCard"
-          @blur="entry()"
+          @change="entry()"
           autofocus="autofocus">
 
         <button
@@ -87,7 +88,8 @@ export default {
         success: false,
         fail: false
       },
-      creditCard: undefined
+      creditCard: undefined,
+      showCreditCardInput: false
     }
   },
   methods: {
@@ -101,9 +103,11 @@ export default {
     },
     startReadCreditCard () {
       this.$refs.readCreditCardModal.open()
+      this.showCreditCardInput = true
     },
     entry () {
       const self = this
+      if (self.creditCard.length < 16) return
       setTimeout(() => {
         axios({
           method: 'post',
@@ -119,6 +123,15 @@ export default {
             success: true,
             waiting: false
           }
+          self.saleValue = undefined
+          setTimeout(() => {
+            self.$refs.readCreditCardModal.close()
+            self.showCreditCardInput = false
+            self.operation = {
+              success: false,
+              waiting: true
+            }
+          }, 3000)
         })
         .catch((err) => {
           console.log(err)
@@ -126,6 +139,15 @@ export default {
             fail: true,
             waiting: false
           }
+          self.saleValue = undefined
+          setTimeout(() => {
+            self.$refs.readCreditCardModal.close()
+            self.showCreditCardInput = false
+            self.operation = {
+              fail: false,
+              waiting: true
+            }
+          }, 3000)
         })
       }, 1500)
     }
