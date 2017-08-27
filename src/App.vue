@@ -7,14 +7,17 @@
           <div class="list-header">
             MENU
           </div>
-          <q-drawer-link icon="card_travel" to="/new-sale">Nova Venda</q-drawer-link>
-          <q-drawer-link icon="assignment" to="/list-sales">Lista de Vendas</q-drawer-link>
-          <q-drawer-link icon="settings" to="/settings">Configurações</q-drawer-link>
+          <q-drawer-link icon="format_align_justify" to="/extract">Extrato</q-drawer-link>
+          <q-drawer-link icon="slow_motion_video" to="/challenges">Desafios</q-drawer-link>
+          <q-drawer-link icon="assessment" to="/general-statistic">Estatísticas gerais</q-drawer-link>
         </div>
       </q-drawer>
 
       <!-- All Header -->
-      <div slot="header" class="toolbar">
+      <div
+        v-if="checkIfLoginRoute"
+        slot="header"
+        class="toolbar">
         <button
           @click="$refs.drawerMenuMain.open()">
           <i>menu</i>
@@ -22,7 +25,7 @@
 
         <!-- App name -->
         <q-toolbar-title>
-          Snapay
+          Jarbank
         </q-toolbar-title>
       </div>
 
@@ -38,7 +41,15 @@
  * Root component
  */
 export default {
-  name: 'AppMain'
+  name: 'AppMain',
+  computed: {
+    checkIfLoginRoute () {
+      const possiblePaths = ['/', '/login']
+      if (!~possiblePaths.indexOf(this.$route.path)) return true
+      return false
+    }
+  },
+  methods: {}
 }
 </script>
 
@@ -54,7 +65,7 @@ body
   height 100%
 
 .toolbar
-  background-color #2aa68d
+  background-color #72b5aa
 
 .list-header
   font-weight 600

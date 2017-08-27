@@ -1,6 +1,6 @@
 <template>
   <div class="">
-    <h1>Index</h1>
+    <h1>Extract</h1>
   </div>
 </template>
 

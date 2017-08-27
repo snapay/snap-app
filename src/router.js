@@ -9,11 +9,13 @@ function load (component) {
 
 export default new VueRouter({
   routes: [
-    { name: 'NewSale', path: '/', component: load('NewSale') }, // Default
-    { name: 'Settings', path: '/settings', component: load('Settings') }, // Settings
-    { name: 'NewSale2', path: '/new-sale', component: load('NewSale') }, // New sale
-    { name: 'ListSales', path: '/list-sales', component: load('ListSales') }, // List sale
-    { name: 'ReadCreditCard', path: '/read-credit-card', component: load('ReadCreditCard') }, // Reading credit card
-    { path: '*', component: load('Error404') } // Not found
+    { name: 'Login', path: '/login', component: load('Login') },
+    { name: 'Register', path: '/register', component: load('Register') },
+    { name: 'Home', path: '/home', component: load('Home') },
+    { name: 'Extract', path: '/extract', component: load('Extract') },
+    { name: 'Challenges', path: '/challenges', component: load('Challenges') },
+    { name: 'GeneralStatistic', path: '/general-statistic', component: load('GeneralStatistic') },
+
+    { path: '*', component: load('Login') }
   ]
 })

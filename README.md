@@ -1,7 +1,7 @@
 <p align="center">
-  <img src="src/statics/xxxhdpi.png" width="60" />
-  <h3 align="center">Snapay</h3>
-  <p align="center">A new device to make simple payments.</p>
+  <img src="src/assets/logo-transparent.png?v=1" width="60" />
+  <h3 align="center">Jarbank</h3>
+  <p align="center">A mobile app to interact to our clients.</p>
 
   <p align="center">
   <a href="http://standardjs.com/">
@@ -12,7 +12,7 @@
 
 ---
 
-## Build Setup
+### Build Setup
 
 ``` bash
 # install dependencies
